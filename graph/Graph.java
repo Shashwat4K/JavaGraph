@@ -13,7 +13,7 @@ public class Graph<T> {
 
     /**
      * Constructor
-     * @param b
+     * @param isUndirected Whether the graph is undirected or not.
      */
     public Graph (boolean isUndirected) {
         this.map = new HashMap<>();
