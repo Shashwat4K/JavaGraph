@@ -77,10 +77,12 @@ public class GraphEdge<T> {
             + " (" + this.dest.toString() + ")";
     }
 
+    /*
     public static void main(String[] args) {
         GraphNode node0 = new GraphNode(0);
         GraphNode node1 = new GraphNode(1);
         GraphEdge<GraphNode> edge = new GraphEdge<>(node0, node1, true);
         System.out.println(edge);
     }
+    */
 }
