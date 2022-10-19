@@ -1,0 +1,5 @@
+.DS_Store
+*.iml
+out
+.vs_code
+.idea
