@@ -4,10 +4,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.HashSet;
 
 public class Graph<T> {
 
     private Map<T, List<T>> map;
+
+    private Set<GraphEdge> edgeSet;
 
     private boolean isUndirected;
 
@@ -17,6 +21,7 @@ public class Graph<T> {
      */
     public Graph (boolean isUndirected) {
         this.map = new HashMap<>();
+        this.edgeSet = new HashSet<>();
         this.isUndirected = isUndirected;
     }
 
@@ -47,6 +52,8 @@ public class Graph<T> {
         if (isUndirected) {
             map.get(destination).add(source);
         }
+        GraphEdge<T> edge = new GraphEdge<>(source, destination, isUndirected);
+        edgeSet.add(edge);
     }
 
     /**
