@@ -7,13 +7,18 @@ import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
 
+/**
+ * A generic Graph data structure.
+ */
 public class Graph<T> {
 
     private Map<T, List<T>> map;
 
-    private Set<GraphEdge> edgeSet;
+    private Set<GraphEdge<T>> edgeSet;
 
     private boolean isUndirected;
+
+    private T source;
 
     /**
      * Constructor
@@ -23,6 +28,7 @@ public class Graph<T> {
         this.map = new HashMap<>();
         this.edgeSet = new HashSet<>();
         this.isUndirected = isUndirected;
+        this.source = null;
     }
 
     /**
@@ -31,6 +37,9 @@ public class Graph<T> {
      */
     public void addVertex(T s) {
         map.putIfAbsent(s, new ArrayList<>());
+        if (source == null) {
+            source = s;
+        }
     }
  
     /**
@@ -79,6 +88,39 @@ public class Graph<T> {
         return count;
     }
  
+    /**
+     * Get the source vertex
+     * @return reference to the source vertex object
+     */
+    public T getSource() {
+        return this.source;
+    }
+
+    /**
+     * Sets the source vertex for traversals
+     * @param src Reference to the source vertex object.
+     */
+    public void setSource(T src) {
+        this.source = src;
+    }
+
+    /**
+     * Get the adjacency list of the provided vertex reference
+     * @param v Reference to the vertex
+     * @return Adjacency list of the provided vertex.
+     */
+    public List<T> getAdjList(T v) {
+        return map.get(v);
+    }
+
+    /**
+     * Get the collection of vertices in the graph
+     * @return set of vertices in the graph
+     */
+    public Set<T> getVertices() {
+        return map.keySet();
+    }
+
     /**
      * Check if the given vertex is in the graph.
      * @param s Vertex to find in the graph

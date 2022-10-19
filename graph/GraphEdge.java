@@ -1,7 +1,8 @@
 package graph;
 
-import graph.GraphNode;
-
+/**
+ * A class modelling the edges of a graph.
+ */
 public class GraphEdge<T> {
     private T src;
     private T dest;
@@ -61,7 +62,7 @@ public class GraphEdge<T> {
             return false;
         }
 
-        GraphEdge graphEdge = (GraphEdge) o;
+        GraphEdge<T> graphEdge = (GraphEdge<T>) o;
         return this.src.equals(graphEdge.src) 
             && this.dest.equals(graphEdge.dest) 
             && this.isUndirected == graphEdge.isUndirected;
@@ -76,13 +77,4 @@ public class GraphEdge<T> {
             + "--" + (this.weight == 0.0 ? "": String.valueOf(this.weight)) + (isUndirected ? "--":"->") 
             + " (" + this.dest.toString() + ")";
     }
-
-    /*
-    public static void main(String[] args) {
-        GraphNode node0 = new GraphNode(0);
-        GraphNode node1 = new GraphNode(1);
-        GraphEdge<GraphNode> edge = new GraphEdge<>(node0, node1, true);
-        System.out.println(edge);
-    }
-    */
 }

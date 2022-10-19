@@ -1,13 +1,36 @@
 package graph;
 
+/**
+ * A class modelling the vertices of a graph.
+ */
 public class GraphNode {
     
     private int value;
     private String label;
 
+    /**
+     * Constructor: Constructs a `GraphNode` object with given value.
+     * @param value value of the vertex
+     */
     public GraphNode(int value) {
         this.value = value;
         this.label = String.valueOf(value);
+    }
+
+    /**
+     * Get the value of the vertex.
+     * @return value of the vertex.
+     */
+    public int getValue() {
+        return this.value;
+    }
+
+    /**
+     * Get the label of the vertex
+     * @return label of the vertex (string format of `value`)
+     */
+    public String getLabel() {
+        return this.label;
     }
 
     /**
