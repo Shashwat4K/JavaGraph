@@ -45,8 +45,7 @@ public class Graph<T> {
     /**
      * Adds edge between `source` and `destination` vertices
      * @param source Source Vertex
-     * @param destination Destination vertex
-     * @param isUndirected Whether edge is undirected or not.
+     * @param destination Destination vertex.
      */
     public void addEdge(T source, T destination) {
         if (!map.containsKey(source)) {
