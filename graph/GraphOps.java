@@ -3,8 +3,12 @@ package graph;
 import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * A class containing basic graph operations.
@@ -15,6 +19,16 @@ public class GraphOps {
      * Private constructor to hide the default one.
      */
     private GraphOps() {}
+
+    private static class Timer {
+        public Integer timer;
+        Timer(Integer value) {
+            this.timer = value;
+        }
+        public String toString() {
+            return String.valueOf(timer);
+        }
+    }
 
     /**
      * Performs iterative DFS on the provided graph.
@@ -93,5 +107,69 @@ public class GraphOps {
             }
         }
         return connectedComponentsCount;
+    }
+
+    private static void articulationPointDetectionUtil
+    (
+        GraphNode v,
+        GraphNode w,
+        Graph<GraphNode> graph,
+        Map<GraphNode, Boolean> visited,
+        Map<GraphNode, Integer> timeIn,
+        Map<GraphNode, Integer> low,
+        Timer timer,
+        Set<GraphNode> articulationPoints
+    ) {
+        visited.put(v, true);
+        timeIn.put(v, timer.timer);
+        low.put(v, timer.timer);
+        timer.timer = timer.timer + 1;
+        int children = 0;
+        for (GraphNode dest: graph.getAdjList(v)) {
+            if (dest.equals(w)) { continue; }
+            if (dest.getAliveStatus() && Boolean.TRUE.equals(visited.get(dest))) {
+                low.put(v, Math.min(low.get(v), timeIn.get(dest)));
+            } else {
+                articulationPointDetectionUtil(dest, v, graph, visited, timeIn, low, timer, articulationPoints);
+                low.put(v, Math.min(low.get(v), low.get(dest)));
+                if (low.get(dest) >= timeIn.get(v) && w.getValue() != -1) {
+                    articulationPoints.add(v);
+                }
+                ++children;
+            }
+        }
+        if (w.getValue() == -1 && children > 1) {
+            articulationPoints.add(v);
+        }
+    }
+
+    public static Set<GraphNode> detectArticulationPoints(Graph<GraphNode> graph) {
+        Timer timer = new Timer(0);
+        Map<GraphNode, Boolean> visited = new HashMap<>();
+        Map<GraphNode, Integer> timeIn = new HashMap<>();
+        Map<GraphNode, Integer> low = new HashMap<>();
+        Set<GraphNode> vertices = graph.getVertices();
+        Set<GraphNode> articulationPoints = new HashSet<>();
+        GraphNode p = new GraphNode(-1);
+        for (GraphNode v: vertices) {
+            visited.putIfAbsent(v, false);
+            timeIn.putIfAbsent(v, -1);
+            low.putIfAbsent(v, -1);
+        }
+        for (GraphNode v: vertices) {
+            if (v.getAliveStatus() && Boolean.FALSE.equals(visited.get(v))) {
+                articulationPointDetectionUtil(
+                    v, 
+                    p,
+                    graph,
+                    visited,
+                    timeIn,
+                    low,
+                    timer,
+                    articulationPoints
+                );
+            }
+        }
+        return articulationPoints;
     }
 }
