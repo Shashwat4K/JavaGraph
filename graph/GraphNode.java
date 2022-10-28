@@ -7,7 +7,7 @@ public class GraphNode {
     
     private int value;
     private String label;
-
+    private boolean isAlive;
     /**
      * Constructor: Constructs a `GraphNode` object with given value.
      * @param value value of the vertex
@@ -15,6 +15,7 @@ public class GraphNode {
     public GraphNode(int value) {
         this.value = value;
         this.label = String.valueOf(value);
+        this.isAlive = true; // A node is alive by default.
     }
 
     /**
@@ -31,6 +32,18 @@ public class GraphNode {
      */
     public String getLabel() {
         return this.label;
+    }
+
+    /**
+     * Get the alive status of the node
+     * @return `isAlive`
+     */
+    public boolean getAliveStatus() {
+        return this.isAlive;
+    }
+
+    public void setAliveStatus(boolean aliveStatus) {
+        this.isAlive = aliveStatus;
     }
 
     /**

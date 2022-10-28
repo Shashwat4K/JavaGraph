@@ -20,17 +20,17 @@ public class GraphOps {
      * Performs iterative DFS on the provided graph.
      * @param graph The graph object
      */
-    public static void dfs(Graph<GraphNode> graph) {
+    public static void dfsIterative(Graph<GraphNode> graph) {
         Stack<GraphNode> stack = new Stack<>();
         boolean[] isVisited = new boolean[graph.getVertexCount()];
         stack.push(graph.getSource());
         while (!stack.isEmpty()) {
             GraphNode current = stack.pop();
-            if(!isVisited[current.getValue()]) {
+            if(current.getAliveStatus() && !isVisited[current.getValue()]) {
                 isVisited[current.getValue()] = true;
                 System.out.println(current.getLabel());
                 for (GraphNode dest : graph.getAdjList(current)) {
-                    if (!isVisited[dest.getValue()]) {
+                    if (current.getAliveStatus() && !isVisited[dest.getValue()]) {
                         stack.push(dest);
                     }
                 }
@@ -42,17 +42,17 @@ public class GraphOps {
      * Performs iterative BFS on the provided graph
      * @param graph the graph object
      */
-    public static void bfs(Graph<GraphNode> graph) {
+    public static void bfsIterative(Graph<GraphNode> graph) {
         Queue<GraphNode> queue = new LinkedList<>();
         boolean[] isVisited = new boolean[graph.getVertexCount()];
         queue.add(graph.getSource());
         while(!queue.isEmpty()) {
             GraphNode current = queue.poll();
-            if (!isVisited[current.getValue()]) {
+            if (current.getAliveStatus() && !isVisited[current.getValue()]) {
                 isVisited[current.getValue()] = true;
                 System.out.println(current.getLabel());
                 for (GraphNode dest: graph.getAdjList(current)) {
-                    if (!isVisited[dest.getValue()]) {
+                    if (current.getAliveStatus() && !isVisited[dest.getValue()]) {
                         queue.add(dest);
                     }
                 }
@@ -69,7 +69,7 @@ public class GraphOps {
     private static void connectedComponentsUtil(Graph<GraphNode> graph, Map<GraphNode, Boolean> isVisited, GraphNode current) {
         isVisited.put(current, true);
         for(GraphNode dest: graph.getAdjList(current)) {
-            if (graph.hasVertex(dest) && Boolean.TRUE.equals(!isVisited.get(dest))) {
+            if (graph.hasVertex(dest) && dest.getAliveStatus() && Boolean.TRUE.equals(!isVisited.get(dest))) {
                 connectedComponentsUtil(graph, isVisited, dest);
             }
         }
@@ -87,7 +87,7 @@ public class GraphOps {
             isVisited.put(graphNode, false);
         }
         for(GraphNode v: graph.getVertices()) {
-            if (graph.hasVertex(v) && Boolean.TRUE.equals(!isVisited.get(v))) {
+            if (graph.hasVertex(v) && v.getAliveStatus() && Boolean.TRUE.equals(!isVisited.get(v))) {
                 connectedComponentsUtil(graph, isVisited, v);
                 connectedComponentsCount += 1;
             }

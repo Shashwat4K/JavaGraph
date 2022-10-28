@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
+import java.lang.reflect.*;
 
 /**
  * A generic Graph data structure.
@@ -62,6 +63,42 @@ public class Graph<T> {
         }
         GraphEdge<T> edge = new GraphEdge<>(source, destination, isUndirected);
         edgeSet.add(edge);
+    }
+
+    /**
+     * Removes a vertex from the graph
+     * @param v reference to the vertex object
+     */
+    public void removeVertex(T v) {
+        // TODO: Implement the `removeVertex` method. Somehow incorporate the `setAliveStatus()` method.
+        // Use reflections!
+        /* 
+        if (v.getClass() == GraphNode.class) {
+            Class c = v.getClass();
+            try {
+                Method m = c.getDeclaredMethod("setAliveStatus", Boolean.class);
+                Object retval = (Object) m.invoke(v, Boolean.TRUE);
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+                System.err.println("No such method as `setAliveStatus`");
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+                System.err.println(e.getMessage() + " exception occurred");
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+                System.err.println(e.getMessage() + " exception occurred");
+            }
+        }
+        */
+    }
+    
+    /**
+     * Remove the edge between the vertices `src` and `dest` (if it exists)
+     * @param src Source vertex
+     * @param dest Destination vertex
+     */
+    public void removeEdge(T src, T dest) {
+        // TODO: implement this method
     }
 
     /**
