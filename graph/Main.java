@@ -34,14 +34,23 @@ public class Main {
         myGraph.addEdge(allNodes.get(11), allNodes.get(13));
         myGraph.addEdge(allNodes.get(10), allNodes.get(12));
         myGraph.addEdge(allNodes.get(12), allNodes.get(14));
-
+        // Experimental edges
+        // myGraph.addEdge(allNodes.get(13), allNodes.get(14));
+        // myGraph.addEdge(allNodes.get(3), allNodes.get(6));
+        // myGraph.addEdge(allNodes.get(6), allNodes.get(7));
+        // myGraph.addEdge(allNodes.get(9), allNodes.get(10));
+        // myGraph.addEdge(allNodes.get(4), allNodes.get(11));
         System.out.println("Graph:\n" + myGraph.toString());
         int cc1 = countConnectedComponents(myGraph);
-        System.out.println("number of connected components in the graph are: " + cc1);
+        System.out.println("Number of CCs in the original graph are: " + cc1);
         Set<GraphNode> apList = detectArticulationPoints(myGraph);
-        System.out.print("Articulation points: ");
+        // System.out.print("Articulation points: ");
         for(GraphNode node: apList) {
-            System.out.print(node.getLabel() + " ");
+            System.out.print("Number of CCs after disconnecting AP " + node.getLabel() + " are: ");
+            node.setAliveStatus(false);
+            int cc = countConnectedComponents(myGraph);
+            System.out.println(cc);
+            node.setAliveStatus(true);
         }
         System.out.println();
     }
