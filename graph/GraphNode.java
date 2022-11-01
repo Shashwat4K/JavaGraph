@@ -3,8 +3,7 @@ package graph;
 /**
  * A class modelling the vertices of a graph.
  */
-public class GraphNode {
-    
+public class GraphNode implements Node {
     private int value;
     private String label;
     private boolean isAlive;
@@ -22,6 +21,7 @@ public class GraphNode {
      * Get the value of the vertex.
      * @return value of the vertex.
      */
+    @Override
     public int getValue() {
         return this.value;
     }
@@ -30,6 +30,7 @@ public class GraphNode {
      * Get the label of the vertex
      * @return label of the vertex (string format of `value`)
      */
+    @Override
     public String getLabel() {
         return this.label;
     }
@@ -38,10 +39,16 @@ public class GraphNode {
      * Get the alive status of the node
      * @return `isAlive`
      */
+    @Override
     public boolean getAliveStatus() {
         return this.isAlive;
     }
 
+    /**
+     * Set the alive status of the node.
+     * @param aliveStatus boolean value. true -> alive, false -> dead.
+     */
+    @Override
     public void setAliveStatus(boolean aliveStatus) {
         this.isAlive = aliveStatus;
     }
