@@ -3,7 +3,7 @@ package graph;
 /**
  * A class modelling the edges of a graph.
  */
-public class GraphEdge<T> {
+public class GraphEdge<T extends Node> {
     private T src;
     private T dest;
     private boolean isUndirected;

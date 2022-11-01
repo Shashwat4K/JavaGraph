@@ -1,14 +1,13 @@
 package graph;
 
 import static graph.GraphOps.countConnectedComponents;
-import static graph.GraphOps.dfsIterative;
 
 /**
  * Main class to test and debug the graph operations.
  */
 public class Main {
     public static void main(String[] args) {
-        Graph<GraphNode> myGraph = new Graph<>(true);
+        Graph<Node> myGraph = new Graph<>(true);
 
         GraphNode node0 = new GraphNode(0);
         GraphNode node1 = new GraphNode(1);
@@ -29,6 +28,7 @@ public class Main {
         myGraph.addEdge(node5, node6);
         myGraph.addVertex(node7);
         System.out.println(myGraph.toString());
+        System.out.println("Number of edges: " + myGraph.getEdgesCount());
         int cc1 = countConnectedComponents(myGraph);
         System.out.println("Number of connected components in the graph are: " + cc1);
         node1.setAliveStatus(false);
