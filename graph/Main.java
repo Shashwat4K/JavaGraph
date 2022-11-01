@@ -28,10 +28,12 @@ public class Main {
         // myGraph.addEdge(node3, node4);
         myGraph.addEdge(node5, node6);
         myGraph.addVertex(node7);
+        System.out.println(myGraph.toString());
         int cc1 = countConnectedComponents(myGraph);
-        System.out.println("number of connected components in the graph are: " + cc1);
+        System.out.println("Number of connected components in the graph are: " + cc1);
         node1.setAliveStatus(false);
+        System.out.println("Disconnecting vertex " + node1.getLabel());
         int cc2 =  countConnectedComponents(myGraph);
-        System.out.println("number of connected components in the graph are: " + cc2);
+        System.out.println("Number of connected components in the graph are: " + cc2);
     }
 }
