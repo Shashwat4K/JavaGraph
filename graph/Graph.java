@@ -6,7 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
-import java.lang.reflect.*;
+import java.util.Iterator;
+// import java.lang.reflect.*;
 
 /**
  * A generic Graph data structure.
@@ -115,8 +116,10 @@ public class Graph<T> {
      */
     public int getEdgesCount() {
         int count = 0;
-        for (T v : map.keySet()) {
-            count += map.get(v).size();
+        Iterator<Map.Entry<T, List<T>>> itr = map.entrySet().iterator();
+        while(itr.hasNext()) {
+            Map.Entry<T, List<T>> entry = itr.next();
+            count += entry.getValue().size();
         }
         if (isUndirected) {
             count = count / 2;
@@ -183,13 +186,13 @@ public class Graph<T> {
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();
-        for (T v : map.keySet()) {
-            builder.append(v.toString() + ": ");
-            for (T w : map.get(v)) {
+        map.forEach((vertex, adjList) -> {
+            builder.append(vertex.toString() + ": ");
+            for (T w : adjList) {
                 builder.append(w.toString() + " ");
             }
             builder.append("\n");
-        }
+        });
         return (builder.toString());
     }
 }

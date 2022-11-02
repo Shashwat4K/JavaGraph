@@ -7,6 +7,7 @@ public class GraphNode implements Node {
     private int value;
     private String label;
     private boolean isAlive;
+    
     /**
      * Constructor: Constructs a `GraphNode` object with given value.
      * @param value value of the vertex
