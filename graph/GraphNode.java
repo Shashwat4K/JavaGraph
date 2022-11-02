@@ -3,11 +3,7 @@ package graph;
 /**
  * A class modelling the vertices of a graph.
  */
-public class GraphNode implements Node {
-    private int value;
-    private String label;
-    private boolean isAlive;
-    
+public class GraphNode extends Node {
     /**
      * Constructor: Constructs a `GraphNode` object with given value.
      * @param value value of the vertex

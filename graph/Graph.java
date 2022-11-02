@@ -12,7 +12,7 @@ import java.util.Iterator;
 /**
  * A generic Graph data structure.
  */
-public class Graph<T> {
+public class Graph<T extends Node> {
 
     private Map<T, List<T>> map;
 

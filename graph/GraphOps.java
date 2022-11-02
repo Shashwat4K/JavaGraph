@@ -1,15 +1,15 @@
 package graph;
 
-import java.util.Stack;
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.Deque;
 import java.util.HashMap;
 
 /**
  * A class containing basic graph operations.
  */
-public class GraphOps {
+public class GraphOps<T extends Node> {
 
     /**
      * Private constructor to hide the default one.
@@ -21,7 +21,7 @@ public class GraphOps {
      * @param graph The graph object
      */
     public static void dfsIterative(Graph<Node> graph) {
-        Stack<Node> stack = new Stack<>();
+        Deque<Node> stack = new LinkedList<>();
         boolean[] isVisited = new boolean[graph.getVertexCount()];
         stack.push(graph.getSource());
         while (!stack.isEmpty()) {
