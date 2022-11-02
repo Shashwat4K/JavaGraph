@@ -1,7 +1,6 @@
 package graph;
 
 import static graph.GraphOps.countConnectedComponents;
-import static graph.GraphOps.dfsIterative;
 
 /**
  * Main class to test and debug the graph operations.
