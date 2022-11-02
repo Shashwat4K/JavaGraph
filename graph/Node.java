@@ -1,12 +1,16 @@
 package graph;
 
-public interface Node {
-    public int getValue();
-    public String getLabel();
-    public boolean getAliveStatus();
-    public void setAliveStatus(boolean status);
+public abstract class Node {
+    protected int value;
+    protected String label;
+    protected boolean isAlive;
+    
+    public abstract int getValue();
+    public abstract String getLabel();
+    public abstract boolean getAliveStatus();
+    public abstract void setAliveStatus(boolean status);
     // Aux methods
-    public int hashCode();
-    public boolean equals(Object o);
-    public String toString();
+    public abstract int hashCode();
+    public abstract boolean equals(Object o);
+    public abstract String toString();
 }
