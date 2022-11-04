@@ -15,6 +15,17 @@ public class GraphNode extends Node {
     }
 
     /**
+     * Constructor
+     * @param value value of the vertex
+     * @param label label of the vertex
+     */
+    public GraphNode(int value, String label) {
+        this.value = value;
+        this.label = label;
+        this.isAlive = true; // A node is alive by default.
+    }
+
+    /**
      * Get the value of the vertex.
      * @return value of the vertex.
      */
@@ -30,6 +41,14 @@ public class GraphNode extends Node {
     @Override
     public String getLabel() {
         return this.label;
+    }
+
+    /**
+     * Set the label for this vertex
+     * @param label label for the vertex
+     */
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     /**

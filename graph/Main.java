@@ -1,6 +1,8 @@
 package graph;
 
 import static graph.GraphOps.countConnectedComponents;
+import static graph.GraphOps.dfsIterative;
+import static graph.GraphOps.bfsIterative;
 
 /**
  * Main class to test and debug the graph operations.
@@ -24,15 +26,22 @@ public class Main {
         myGraph.addEdge(node1, node3);
         myGraph.addEdge(node1, node4);
         myGraph.addEdge(node2, node3);
-        // myGraph.addEdge(node3, node4);
+        myGraph.addEdge(node3, node5);
         myGraph.addEdge(node5, node6);
-        myGraph.addVertex(node7);
+        myGraph.addEdge(node5, node7);
+        myGraph.addEdge(node6, node7);
         System.out.println(myGraph.toString());
         System.out.println("Number of edges: " + myGraph.getEdgesCount());
+
+        myGraph.setSource(node7);
+        bfsIterative(myGraph);
+
         int cc1 = countConnectedComponents(myGraph);
         System.out.println("Number of connected components in the graph are: " + cc1);
+        
         node1.setAliveStatus(false);
         System.out.println("Disconnecting vertex " + node1.getLabel());
+        
         int cc2 =  countConnectedComponents(myGraph);
         System.out.println("Number of connected components in the graph are: " + cc2);
     }

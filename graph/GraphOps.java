@@ -9,7 +9,7 @@ import java.util.HashMap;
 /**
  * A class containing basic graph operations.
  */
-public class GraphOps<T extends Node> {
+public class GraphOps {
 
     /**
      * Private constructor to hide the default one.
