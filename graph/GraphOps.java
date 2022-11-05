@@ -2,8 +2,6 @@ package graph;
 
 import java.util.Queue;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.Deque;
 import java.util.HashMap;
@@ -20,13 +18,17 @@ public class GraphOps {
      */
     private GraphOps() {}
 
-    private static class Timer {
-        public Integer timer;
-        Timer(Integer value) {
-            this.timer = value;
+    /**
+     * A new integer class to pass the objects as reference in methods.
+     * // TODO: Rename this class with some meaningful name.
+     */
+    private static class MyInteger {
+        public Integer integer;
+        MyInteger(Integer value) {
+            this.integer = value;
         }
         public String toString() {
-            return String.valueOf(timer);
+            return String.valueOf(integer);
         }
     }
 
@@ -117,13 +119,13 @@ public class GraphOps {
         Map<Node, Boolean> visited,
         Map<Node, Integer> timeIn,
         Map<Node, Integer> low,
-        Timer timer,
+        MyInteger timer,
         Set<Node> articulationPoints
     ) {
         visited.put(v, true);
-        timeIn.put(v, timer.timer);
-        low.put(v, timer.timer);
-        timer.timer = timer.timer + 1;
+        timeIn.put(v, timer.integer);
+        low.put(v, timer.integer);
+        timer.integer = timer.integer + 1;
         int children = 0;
         for (Node dest: graph.getAdjList(v)) {
             if (dest.equals(w)) { continue; }
@@ -144,7 +146,7 @@ public class GraphOps {
     }
 
     public static Set<Node> detectArticulationPoints(Graph<Node> graph) {
-        Timer timer = new Timer(0);
+        MyInteger timer = new MyInteger(0);
         Map<Node, Boolean> visited = new HashMap<>();
         Map<Node, Integer> timeIn = new HashMap<>();
         Map<Node, Integer> low = new HashMap<>();
