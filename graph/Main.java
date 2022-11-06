@@ -13,7 +13,6 @@ import static graph.GraphOps.detectArticulationPoints;
  */
 public class Main {
     public static void main(String[] args) {
-        /*
         Graph<Node> myGraph = new Graph<>(true);
 
         List<GraphNode> allNodes = new ArrayList<>();
@@ -56,8 +55,9 @@ public class Main {
             node.setAliveStatus(true);
         }
         System.out.println();
-        */
+        
 
+        /*
         GraphCreator g = new GraphCreator();
 
         Graph<Node> myGraph = g.createGraph("data/power-494-bus/power-494-bus.mtx");
@@ -72,5 +72,6 @@ public class Main {
             node.setAliveStatus(true);
         }
         System.out.println();
+        */
     }
 }
