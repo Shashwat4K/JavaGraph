@@ -1,16 +1,19 @@
 package graph;
 
+import graph.util.GraphCreator;
+
 import java.util.Set;
 import java.util.List;
 import java.util.ArrayList;
 import static graph.GraphOps.countConnectedComponents;
-
+import static graph.GraphOps.dfsIterative;
 import static graph.GraphOps.detectArticulationPoints;
 /**
  * Main class to test and debug the graph operations.
  */
 public class Main {
     public static void main(String[] args) {
+        /*
         Graph<Node> myGraph = new Graph<>(true);
 
         List<GraphNode> allNodes = new ArrayList<>();
@@ -46,6 +49,22 @@ public class Main {
         Set<Node> apList = detectArticulationPoints(myGraph);
         // System.out.print("Articulation points: ");
         for(Node node: apList) {
+            System.out.print("Number of CCs after disconnecting AP " + node.getLabel() + " are: ");
+            node.setAliveStatus(false);
+            int cc = countConnectedComponents(myGraph);
+            System.out.println(cc);
+            node.setAliveStatus(true);
+        }
+        System.out.println();
+        */
+
+        GraphCreator g = new GraphCreator();
+
+        Graph<Node> myGraph = g.createGraph("data/power-494-bus/power-494-bus.mtx");
+        int cc1 = countConnectedComponents(myGraph);
+        System.out.println("Number of connected components: " + cc1);
+        Set<Node> apSet = detectArticulationPoints(myGraph);
+        for(Node node: apSet) {
             System.out.print("Number of CCs after disconnecting AP " + node.getLabel() + " are: ");
             node.setAliveStatus(false);
             int cc = countConnectedComponents(myGraph);
