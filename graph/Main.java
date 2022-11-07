@@ -45,31 +45,30 @@ public class Main {
         System.out.println("Graph:\n" + myGraph.toString());
         int cc1 = countConnectedComponents(myGraph);
         System.out.println("Number of CCs in the original graph are: " + cc1);
-        Set<Node> apList = detectArticulationPoints(myGraph);
-        // System.out.print("Articulation points: ");
-        for(Node node: apList) {
-            System.out.print("Number of CCs after disconnecting AP " + node.getLabel() + " are: ");
-            node.setAliveStatus(false);
-            int cc = countConnectedComponents(myGraph);
-            System.out.println(cc);
-            node.setAliveStatus(true);
+        boolean[] isAP = detectArticulationPoints(myGraph);
+        for(Node node: myGraph.getVertices()) {
+            if(isAP[node.getValue()]) {
+                System.out.print("Number of CCs after disconnecting AP " + node.getLabel() + " are: ");
+                myGraph.disableVertex(node);
+                int cc = countConnectedComponents(myGraph);
+                System.out.println(cc);
+                myGraph.enableVertex(node);
+            }
         }
         System.out.println();
         
-
         /*
         GraphCreator g = new GraphCreator();
-
-        Graph<Node> myGraph = g.createGraph("data/power-494-bus/power-494-bus.mtx");
-        int cc1 = countConnectedComponents(myGraph);
-        System.out.println("Number of connected components: " + cc1);
-        Set<Node> apSet = detectArticulationPoints(myGraph);
-        for(Node node: apSet) {
-            System.out.print("Number of CCs after disconnecting AP " + node.getLabel() + " are: ");
-            node.setAliveStatus(false);
-            int cc = countConnectedComponents(myGraph);
-            System.out.println(cc);
-            node.setAliveStatus(true);
+        Graph<Node> myGraph = g.createGraph("data/power-494-bus/power-494-bus.mtx", true);
+        boolean[] isAP = detectArticulationPoints(myGraph);
+        for(Node node: myGraph.getVertices()) {
+            if(isAP[node.getValue()]) {
+                System.out.print("Number of CCs after disconnecting AP " + node.getLabel() + " are: ");
+                myGraph.disableVertex(node);
+                int cc = countConnectedComponents(myGraph);
+                System.out.println(cc);
+                myGraph.enableVertex(node);
+            }
         }
         System.out.println();
         */

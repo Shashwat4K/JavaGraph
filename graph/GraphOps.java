@@ -7,7 +7,7 @@ import java.util.Deque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
-
+import java.util.Arrays;
 /**
  * A class containing basic graph operations.
  */
@@ -17,7 +17,8 @@ public class GraphOps {
      * Private constructor to hide the default one.
      */
     private GraphOps() {}
-
+    private static final int NO_PARENT = -1;
+    private static int time = 0;
     /**
      * A new integer class to pass the objects as reference in methods.
      * // TODO: Rename this class with some meaningful name.
@@ -82,8 +83,8 @@ public class GraphOps {
      * @param isVisited Map containing status of nodes
      * @param current Vertex currently being visited
      */
-    private static void connectedComponentsUtil(Graph<Node> graph, Map<Node, Boolean> isVisited, Node current) {
-        isVisited.put(current, true);
+    private static void connectedComponentsUtil(Graph<Node> graph, Map<Node, Boolean> isVisited, Node current) throws Exception {
+        isVisited.put(current, true); 
         for(Node dest: graph.getAdjList(current)) {
             if (graph.hasVertex(dest) && dest.getAliveStatus() && Boolean.TRUE.equals(!isVisited.get(dest))) {
                 connectedComponentsUtil(graph, isVisited, dest);
@@ -102,77 +103,123 @@ public class GraphOps {
         for (Node graphNode: graph.getVertices()) {
             isVisited.put(graphNode, false);
         }
-        for(Node v: graph.getVertices()) {
-            if (graph.hasVertex(v) && v.getAliveStatus() && Boolean.TRUE.equals(!isVisited.get(v))) {
-                connectedComponentsUtil(graph, isVisited, v);
-                connectedComponentsCount += 1;
+        try{
+            for(Node v: graph.getVertices()) {
+                if (graph.hasVertex(v) && v.getAliveStatus() && Boolean.TRUE.equals(!isVisited.get(v))) {
+                    connectedComponentsUtil(graph, isVisited, v);
+                    connectedComponentsCount += 1;
+                }
             }
+        } catch(Exception e) {
+            e.printStackTrace();
         }
         return connectedComponentsCount;
     }
 
     private static void articulationPointDetectionUtil (
-        Node v,
-        Node parent,
+        Node currentVertex,
         Graph<Node> graph,
-        Map<Node, Boolean> visited,
-        Map<Node, Integer> timeIn,
-        Map<Node, Integer> low,
-        MyInteger timer,
-        Set<Node> articulationPoints
+        boolean[] visited,
+        int[] discovery,
+        int[] minimum,
+        int[] parentNode,
+        boolean[] isAP
     ) {
-        int children = 0;
-        visited.put(v, true);
-        timer.integer = timer.integer + 1;
-        timeIn.put(v, timer.integer);
-        low.put(v, timer.integer);
+        // int children = 0;
+        // visited[v.getValue()] = true;
+        // timer.integer = timer.integer + 1;
+        // discovery[v.getValue()] = low[v.getValue()] = timer.integer;
 
-        for (Node w: graph.getAdjList(v)) {
-            if (w.getAliveStatus() && Boolean.FALSE.equals(visited.get(w))) {
+        // for (Node w: graph.getAdjList(v)) {
+        //     if (w.getAliveStatus() && !visited[w.getValue()]) {
+        //         children++;
+        //         articulationPointDetectionUtil(w, v, graph, visited, discovery, low, timer, isAP);
+
+        //         low[v.getValue()] = Math.min(low[v.getValue()], low[w.getValue()]);
+
+        //         if (parent.getValue() != -1 && low[w.getValue()] >= discovery[v.getValue()]) {
+        //             isAP[v.getValue()] = true;
+        //         }
+        //     } else if (v.getValue() != parent.getValue()) {
+        //         low[v.getValue()] = Math.min(low[v.getValue()], discovery[w.getValue()]);
+        //     }
+        // }
+
+        // if (parent.getValue() == -1 && children > 1) {
+        //     isAP[v.getValue()] = true;
+        // }
+        int children = 0; 
+        visited[currentVertex.getValue()] = true; 
+        discovery[currentVertex.getValue()] = minimum[currentVertex.getValue()] = ++time;
+        for(Node adj: graph.getAdjList(currentVertex)) {
+            if(adj.getAliveStatus() && !visited[adj.getValue()]) {
                 children++;
-                articulationPointDetectionUtil(w, v, graph, visited, timeIn, low, timer, articulationPoints);
+                parentNode[adj.getValue()] = currentVertex.getValue();
+                articulationPointDetectionUtil(adj, graph, visited, discovery, minimum, parentNode, isAP);
 
-                low.put(v, Math.min(low.get(v), low.get(w)));
+                minimum[currentVertex.getValue()] = Math.min(minimum[currentVertex.getValue()], minimum[adj.getValue()]);
 
-                if (parent.getValue() != -1 && low.get(w) >= timeIn.get(v)) {
-                    articulationPoints.add(v);
+                if (parentNode[currentVertex.getValue()] == NO_PARENT && children > 1) {
+                    isAP[currentVertex.getValue()] = true; 
                 }
-            } else if (v.getValue() != -1) {
-                low.put(v, Math.min(low.get(v), timeIn.get(v)));
+  
+                // if currentVertex.getValue() is not root and minimum value of one of its adj_vertex is more than discovery value of currentVertex.getValue(). 
+                if (parentNode[currentVertex.getValue()] != NO_PARENT && minimum[adj.getValue()] >= discovery[currentVertex.getValue()]) {
+                    isAP[currentVertex.getValue()] = true; 
+                }
+            } else if (adj.getValue() != parentNode[currentVertex.getValue()]) {
+                minimum[currentVertex.getValue()]  = Math.min(minimum[currentVertex.getValue()], discovery[adj.getValue()]);
             }
-        }
+        } 
 
-        if (parent.getValue() == -1 && children > 1) {
-            articulationPoints.add(v);
-        }
     }
 
-    public static Set<Node> detectArticulationPoints(Graph<Node> graph) {
-        MyInteger timer = new MyInteger(0);
-        Map<Node, Boolean> visited = new HashMap<>();
-        Map<Node, Integer> timeIn = new HashMap<>();
-        Map<Node, Integer> low = new HashMap<>();
-        Set<Node> vertices = graph.getVertices();
-        Set<Node> articulationPoints = new HashSet<>();
-        for (Node v: vertices) {
-            visited.putIfAbsent(v, false);
-            timeIn.putIfAbsent(v, -1);
-            low.putIfAbsent(v, -1);
+    public static boolean[] detectArticulationPoints(Graph<Node> graph) {
+        // MyInteger timer = new MyInteger(0);
+        // Integer[] discovery = new Integer[graph.getVertexCount()];
+        // Integer[] low = new Integer[graph.getVertexCount()];
+        // boolean[] visited = new boolean[graph.getVertexCount()];
+        // boolean[] isAP = new boolean[graph.getVertexCount()];
+        // Arrays.fill(discovery, 0);
+        // Arrays.fill(visited, false);
+        // Set<Node> vertices = graph.getVertices();
+        // Set<Node> articulationPoints = new HashSet<>();
+
+        // for (Node v: vertices) {
+        //     if (v.getAliveStatus() && !visited[v.getValue()]) {
+        //         articulationPointDetectionUtil(
+        //             v, 
+        //             new GraphNode(-1),
+        //             graph,
+        //             visited,
+        //             discovery,
+        //             low,
+        //             timer,
+        //             isAP
+        //         );
+        //     }
+        // }
+        // return isAP;
+        int vertexCount = graph.getVertexCount();
+        boolean[] visited = new boolean[vertexCount]; 
+        int[] discovery = new int[vertexCount]; // array for discovery time of each vertex. 
+        int[] minimum = new int[vertexCount]; // array for minimum time of each node. 
+        int[] parentNode = new int[vertexCount]; // array for storing parent of each vertex.
+        boolean[] isAP = new boolean[vertexCount]; // To store articulation points.
+
+        for(Node v: graph.getVertices()) {
+            parentNode[v.getValue()] = NO_PARENT;
+            visited[v.getValue()] = false;
+            isAP[v.getValue()] = false;
         }
-        for (Node v: vertices) {
-            if (v.getAliveStatus() && Boolean.FALSE.equals(visited.get(v))) {
-                articulationPointDetectionUtil(
-                    v, 
-                    new GraphNode(-1),
-                    graph,
-                    visited,
-                    timeIn,
-                    low,
-                    timer,
-                    articulationPoints
-                );
+  
+        // Call the recursive helper function to find articulation points in graph for every vertex iteratively. 
+        for (Node v: graph.getVertices()){
+            if (visited[v.getValue()] == false) { 
+                articulationPointDetectionUtil(v, graph, visited, discovery, minimum, parentNode, isAP);
             }
         }
-        return articulationPoints;
+
+        return isAP;
     }    
 }

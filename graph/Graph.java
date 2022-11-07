@@ -67,32 +67,43 @@ public class Graph<T extends Node> {
     }
 
     /**
-     * Removes a vertex from the graph
+     * Disables a vertex from the graph as if it is not present in the graph.
      * @param v reference to the vertex object
+     * @throws NullPointerException when the given vertex reference is not found in the graph.
      */
-    public void removeVertex(T v) {
-        // TODO: Implement the `removeVertex` method. Somehow incorporate the `setAliveStatus()` method.
-        // Use reflections!
-        /* 
-        if (v.getClass() == GraphNode.class) {
-            Class c = v.getClass();
-            try {
-                Method m = c.getDeclaredMethod("setAliveStatus", Boolean.class);
-                Object retval = (Object) m.invoke(v, Boolean.TRUE);
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-                System.err.println("No such method as `setAliveStatus`");
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                System.err.println(e.getMessage() + " exception occurred");
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-                System.err.println(e.getMessage() + " exception occurred");
+    public void disableVertex(T v) throws NullPointerException {
+        List<T> adjList = this.map.get(v);
+        // Disable the vertex
+        v.setAliveStatus(false);
+        // Disable the vertex in everyone of its neighbors
+        for(T neighbor: adjList) {
+            for(T w: this.map.get(neighbor)) {
+                if (w.getValue() == v.getValue()) {
+                    w.setAliveStatus(false);
+                }
             }
         }
-        */
     }
     
+    /**
+     * Enables a vertex in the graph if it is disabled
+     * @param v reference to the vertex object
+     * @throws NullPointerException when the given vertex reference is not found in the graph.
+     */
+    public void enableVertex(T v) throws NullPointerException {
+        List<T> adjList = this.map.get(v);
+        // Enable the vertex
+        v.setAliveStatus(true);
+        // Enable the vertex in everyone of its neighbors
+        for(T neighbor: adjList) {
+            for(T w: this.map.get(neighbor)) {
+                if(w.getValue() == v.getValue()) {
+                    w.setAliveStatus(true);
+                }
+            }
+        }
+    }
+
     /**
      * Remove the edge between the vertices `src` and `dest` (if it exists)
      * @param src Source vertex
@@ -107,7 +118,13 @@ public class Graph<T extends Node> {
      * @return Number of vertices in the graph
      */
     public int getVertexCount() {
-        return this.map.keySet().size();            
+        int count = 0;
+        for(T v: this.map.keySet()) {
+            if (v.getAliveStatus()) {
+                count++;
+            }
+        }
+        return count;        
     }
  
     /**
@@ -119,7 +136,14 @@ public class Graph<T extends Node> {
         Iterator<Map.Entry<T, List<T>>> itr = map.entrySet().iterator();
         while(itr.hasNext()) {
             Map.Entry<T, List<T>> entry = itr.next();
-            count += entry.getValue().size();
+            T v = entry.getKey();
+            if(v.getAliveStatus()) {
+                for(T w: entry.getValue()) {
+                    if(w.getAliveStatus()) {
+                        count += 1;
+                    }
+                }
+            }
         }
         if (isUndirected) {
             count = count / 2;
@@ -187,11 +211,15 @@ public class Graph<T extends Node> {
     public String toString() {
         StringBuilder builder = new StringBuilder();
         map.forEach((vertex, adjList) -> {
-            builder.append(vertex.toString() + ": ");
-            for (T w : adjList) {
-                builder.append(w.toString() + " ");
+            if(vertex.getAliveStatus()) {
+                builder.append(vertex.toString() + ": ");
+                for (T w : adjList) {
+                    if(w.getAliveStatus()) {
+                        builder.append(w.toString() + " ");
+                    }
+                }
+                builder.append("\n");
             }
-            builder.append("\n");
         });
         return (builder.toString());
     }
