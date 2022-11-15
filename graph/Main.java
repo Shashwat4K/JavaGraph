@@ -4,6 +4,7 @@ import graph.util.GraphCreator;
 
 import java.util.Set;
 import java.util.List;
+import java.io.IOException;
 import java.util.ArrayList;
 import static graph.GraphOps.countConnectedComponents;
 import static graph.GraphOps.dfsIterative;
@@ -13,64 +14,65 @@ import static graph.GraphOps.detectArticulationPoints;
  */
 public class Main {
     public static void main(String[] args) {
-        Graph<Node> myGraph = new Graph<>(true);
+        /*
+        Graph<Node> myGraph1 = new Graph<>(true);
 
         List<GraphNode> allNodes = new ArrayList<>();
         for (int i = 0; i < 15; i++) {
             allNodes.add(new GraphNode(i));
         }
 
-        myGraph.addEdge(allNodes.get(0), allNodes.get(1));
-        myGraph.addEdge(allNodes.get(0), allNodes.get(2));
-        myGraph.addEdge(allNodes.get(1), allNodes.get(3));
-        myGraph.addEdge(allNodes.get(2), allNodes.get(4));
-        myGraph.addEdge(allNodes.get(3), allNodes.get(5));
-        myGraph.addEdge(allNodes.get(4), allNodes.get(5));
-        myGraph.addEdge(allNodes.get(5), allNodes.get(6));
-        myGraph.addEdge(allNodes.get(5), allNodes.get(7));
-        myGraph.addEdge(allNodes.get(5), allNodes.get(9));
-        myGraph.addEdge(allNodes.get(7), allNodes.get(8));
-        myGraph.addEdge(allNodes.get(8), allNodes.get(9));
-        myGraph.addEdge(allNodes.get(5), allNodes.get(10));
-        myGraph.addEdge(allNodes.get(10), allNodes.get(11));
-        myGraph.addEdge(allNodes.get(11), allNodes.get(13));
-        myGraph.addEdge(allNodes.get(10), allNodes.get(12));
-        myGraph.addEdge(allNodes.get(12), allNodes.get(14));
+        myGraph1.addEdge(allNodes.get(0), allNodes.get(1));
+        myGraph1.addEdge(allNodes.get(0), allNodes.get(2));
+        myGraph1.addEdge(allNodes.get(1), allNodes.get(3));
+        myGraph1.addEdge(allNodes.get(2), allNodes.get(4));
+        myGraph1.addEdge(allNodes.get(3), allNodes.get(5));
+        myGraph1.addEdge(allNodes.get(4), allNodes.get(5));
+        myGraph1.addEdge(allNodes.get(5), allNodes.get(6));
+        myGraph1.addEdge(allNodes.get(5), allNodes.get(7));
+        myGraph1.addEdge(allNodes.get(5), allNodes.get(9));
+        myGraph1.addEdge(allNodes.get(7), allNodes.get(8));
+        myGraph1.addEdge(allNodes.get(8), allNodes.get(9));
+        myGraph1.addEdge(allNodes.get(5), allNodes.get(10));
+        myGraph1.addEdge(allNodes.get(10), allNodes.get(11));
+        myGraph1.addEdge(allNodes.get(11), allNodes.get(13));
+        myGraph1.addEdge(allNodes.get(10), allNodes.get(12));
+        myGraph1.addEdge(allNodes.get(12), allNodes.get(14));
         // Experimental edges
-        // myGraph.addEdge(allNodes.get(13), allNodes.get(14));
-        // myGraph.addEdge(allNodes.get(3), allNodes.get(6));
-        // myGraph.addEdge(allNodes.get(6), allNodes.get(7));
-        // myGraph.addEdge(allNodes.get(9), allNodes.get(10));
-        // myGraph.addEdge(allNodes.get(4), allNodes.get(11));
-        System.out.println("Graph:\n" + myGraph.toString());
-        int cc1 = countConnectedComponents(myGraph);
-        System.out.println("Number of CCs in the original graph are: " + cc1);
-        boolean[] isAP = detectArticulationPoints(myGraph);
-        for(Node node: myGraph.getVertices()) {
-            if(isAP[node.getValue()]) {
-                System.out.print("Number of CCs after disconnecting AP " + node.getLabel() + " are: ");
-                myGraph.disableVertex(node);
-                int cc = countConnectedComponents(myGraph);
-                System.out.println(cc);
-                myGraph.enableVertex(node);
-            }
-        }
-        System.out.println();
+        // myGraph1.addEdge(allNodes.get(13), allNodes.get(14));
+        // myGraph1.addEdge(allNodes.get(3), allNodes.get(6));
+        // myGraph1.addEdge(allNodes.get(6), allNodes.get(7));
+        // myGraph1.addEdge(allNodes.get(9), allNodes.get(10));
+        // myGraph1.addEdge(allNodes.get(4), allNodes.get(11));
         
-        /*
-        GraphCreator g = new GraphCreator();
-        Graph<Node> myGraph = g.createGraph("data/power-494-bus/power-494-bus.mtx", true);
-        boolean[] isAP = detectArticulationPoints(myGraph);
-        for(Node node: myGraph.getVertices()) {
-            if(isAP[node.getValue()]) {
-                System.out.print("Number of CCs after disconnecting AP " + node.getLabel() + " are: ");
-                myGraph.disableVertex(node);
-                int cc = countConnectedComponents(myGraph);
-                System.out.println(cc);
-                myGraph.enableVertex(node);
-            }
+        System.out.println("Graph:\n" + myGraph1.toString());
+        int cc1 = countConnectedComponents(myGraph1);
+        System.out.println("Number of CCs in the original graph are: " + cc1);
+        Set<Node> articulationPoints = detectArticulationPoints(myGraph1);
+        for(Node node: articulationPoints) { 
+            System.out.print("Number of CCs after disconnecting AP " + node.getLabel() + " are: ");
+            myGraph1.disableVertex(node);
+            int cc = countConnectedComponents(myGraph1);
+            System.out.println(cc);
+            myGraph1.enableVertex(node);
         }
         System.out.println();
         */
+        
+        GraphCreator g = new GraphCreator();
+        try {
+            Graph<Node> myGraph2 = g.createGraph("data/power-494-bus/power-494-bus.mtx", true);
+            Set<Node> articulationPoints = detectArticulationPoints(myGraph2);
+            for(Node node: articulationPoints) { 
+                System.out.print("Number of CCs after disconnecting AP " + node.getLabel() + " are: ");
+                myGraph2.disableVertex(node);
+                int cc = countConnectedComponents(myGraph2);
+                System.out.println(cc);
+                myGraph2.enableVertex(node);
+            }
+            System.out.println();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 }
