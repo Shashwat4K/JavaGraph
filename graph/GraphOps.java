@@ -8,23 +8,37 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Arrays;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Time;
 import java.time.*;
 /**
  * A class containing basic graph operations.
  */
 public class GraphOps {
 
+    
+    private static final int stepInterval = 10;
+    private static int stepCount = 0;
+    private static long totalTime = 0;
+    private static long startTime = 0;
+    private static long endTime = 0;
     /**
      * Private constructor to hide the default one.
      */
     private GraphOps() {}
+
+
+    // public boolean getIsDemo() { return this.isDemo; }
+    // public void setIsDemo(boolean isDemo) { this.isDemo = isDemo; }
     // private static final int NO_PARENT = -1;
     // private static int time = 0;
     /**
      * A new integer class to pass the objects as reference in methods.
      * // TODO: Rename this class with some meaningful name.
      */
-    private static class MyInteger {
+    public static class MyInteger {
         public Integer integer;
         MyInteger(Integer value) {
             this.integer = value;
@@ -127,6 +141,41 @@ public class GraphOps {
         return connectedComponentsCount;
     }
 
+    private static void saveTheData(Graph<Node> graph, boolean[] visited, Set<Node> articulationPoints, String step) {
+        try (
+            FileWriter fw = new FileWriter("data/demo_data/demo_step_" + step + ".txt");
+            BufferedWriter bw = new BufferedWriter(fw)
+        ) {
+            for(Node vertex: graph.getVertices()) {
+                String line = "";
+                line = line + String.valueOf(vertex.getValue()) + " ";
+                if(visited[vertex.getValue()]) {
+                    line = line + "1" + " ";
+                } else {
+                    line = line + "0" + " ";
+                }
+                if (articulationPoints.contains(vertex)) {
+                    line = line + "1" + " ";
+                } else {
+                    line = line + "0" + " ";
+                }
+                bw.write(line);
+                bw.newLine();
+            }
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static String stepPadded(String step, int len) {
+        int zeroPadLen = len - step.length();
+        String pad = "";
+        for(int i = 0; i < zeroPadLen; i++) {
+            pad += "0";
+        }
+        return pad + step;
+    }
+
     private static void articulationPointDetectionUtil (
         Node v,
         Node parentNode,
@@ -135,7 +184,8 @@ public class GraphOps {
         int[] discovery,
         int[] low,
         MyInteger timer,
-        Set<Node> articulationPoints
+        Set<Node> articulationPoints,
+        boolean saveData
     ) {
         int children = 0;
         visited[v.getValue()] = true;
@@ -143,9 +193,18 @@ public class GraphOps {
         discovery[v.getValue()] = low[v.getValue()] = timer.integer;
 
         for (Node w: graph.getAdjList(v)) {
+            stepCount += 1;
+            if(saveData && stepCount % stepInterval == 0) {
+                // Save the data on device
+                endTime = System.currentTimeMillis();
+                totalTime += (endTime - startTime);
+                saveTheData(graph, visited, articulationPoints, stepPadded(String.valueOf(stepCount), 5));
+                // System.out.println("Saving the data on device! stepCount = " + stepCount);
+                startTime = System.currentTimeMillis();
+            }
             if (w.getAliveStatus() && !visited[w.getValue()]) {
                 children++;
-                articulationPointDetectionUtil(w, v, graph, visited, discovery, low, timer, articulationPoints);
+                articulationPointDetectionUtil(w, v, graph, visited, discovery, low, timer, articulationPoints, saveData);
 
                 low[v.getValue()] = Math.min(low[v.getValue()], low[w.getValue()]);
 
@@ -162,7 +221,13 @@ public class GraphOps {
         }
     }
 
-    public static Set<Node> detectArticulationPoints(Graph<Node> graph) {
+    public static Set<Node> detectArticulationPoints(
+        Graph<Node> graph, 
+        boolean saveData,
+        MyInteger time
+        ) {
+        // Initialize step count
+        stepCount = 0;
         MyInteger timer = new MyInteger(0);
         int[] discovery = new int[graph.getVertexCount()];
         int[] low = new int[graph.getVertexCount()];
@@ -172,7 +237,20 @@ public class GraphOps {
         Set<Node> vertices = graph.getVertices();
         Set<Node> articulationPoints = new HashSet<>();
         Node parent = new GraphNode(-1);
+        // Start time
+        startTime = System.currentTimeMillis();
+        System.out.println("Start time: " + startTime);
         for (Node v: vertices) {
+            stepCount += 1;
+            if(saveData && stepCount % stepInterval == 0) {
+                // End time
+                endTime = System.currentTimeMillis();
+                totalTime += (endTime - startTime);
+                // Save the data on device
+                saveTheData(graph, visited, articulationPoints, stepPadded(String.valueOf(stepCount), 5));
+                // System.out.println("Saving the data on device! stepCount = " + stepCount);
+                startTime = System.currentTimeMillis();
+            }
             if (graph.hasVertex(v) && v.getAliveStatus() && !visited[v.getValue()]) {
                 articulationPointDetectionUtil(
                     v, 
@@ -182,10 +260,46 @@ public class GraphOps {
                     discovery,
                     low,
                     timer,
-                    articulationPoints
+                    articulationPoints,
+                    saveData
                 );
             }
         }
+        endTime = System.currentTimeMillis();
+        System.out.println("End time: " + endTime);
+        totalTime += (System.currentTimeMillis() - startTime);
+        time.integer = (int) (totalTime);
+        System.out.println("Total time taken: " + totalTime + " ms");
+        // Save the final data
+        if (saveData) {
+            saveTheData(graph, visited, articulationPoints, "final");
+            // System.out.println("Saving the final data");
+        }
         return articulationPoints;
     }    
+
+    public static Set<Node> detectArticulationPoints_BruteForce(
+        Graph<Node> graph,
+        boolean saveData,
+        MyInteger time
+    ) {
+        int ccBefore = 0;
+        int ccAfter = 0;
+        startTime = System.currentTimeMillis();
+        Set<Node> articulationPoints = new HashSet<>();
+        ccBefore = countConnectedComponents(graph);
+        for(Node v: graph.getVertices()) {
+            graph.disableVertex(v);
+            ccAfter = countConnectedComponents(graph);
+            if (ccAfter != ccBefore) {
+                articulationPoints.add(v);
+            }
+            graph.enableVertex(v);
+        }
+        endTime = System.currentTimeMillis();
+        time.integer = (int) (endTime - startTime);
+        System.out.println("Time taken by brute force: " + (endTime-startTime) + " ms");
+        return articulationPoints;
+    }
+
 }
