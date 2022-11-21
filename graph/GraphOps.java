@@ -17,8 +17,7 @@ import java.time.*;
  * A class containing basic graph operations.
  */
 public class GraphOps {
-
-    
+        
     private static final int stepInterval = 10;
     private static int stepCount = 0;
     private static long totalTime = 0;
@@ -29,11 +28,6 @@ public class GraphOps {
      */
     private GraphOps() {}
 
-
-    // public boolean getIsDemo() { return this.isDemo; }
-    // public void setIsDemo(boolean isDemo) { this.isDemo = isDemo; }
-    // private static final int NO_PARENT = -1;
-    // private static int time = 0;
     /**
      * A new integer class to pass the objects as reference in methods.
      * // TODO: Rename this class with some meaningful name.
@@ -248,7 +242,6 @@ public class GraphOps {
                 totalTime += (endTime - startTime);
                 // Save the data on device
                 saveTheData(graph, visited, articulationPoints, stepPadded(String.valueOf(stepCount), 5));
-                // System.out.println("Saving the data on device! stepCount = " + stepCount);
                 startTime = System.currentTimeMillis();
             }
             if (graph.hasVertex(v) && v.getAliveStatus() && !visited[v.getValue()]) {
@@ -273,7 +266,6 @@ public class GraphOps {
         // Save the final data
         if (saveData) {
             saveTheData(graph, visited, articulationPoints, "final");
-            // System.out.println("Saving the final data");
         }
         return articulationPoints;
     }    
@@ -301,5 +293,4 @@ public class GraphOps {
         System.out.println("Time taken by brute force: " + (endTime-startTime) + " ms");
         return articulationPoints;
     }
-
 }
