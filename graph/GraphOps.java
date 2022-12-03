@@ -11,14 +11,12 @@ import java.util.Arrays;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Time;
-import java.time.*;
 /**
  * A class containing basic graph operations.
  */
 public class GraphOps {
         
-    private static final int stepInterval = 10;
+    private static final int STEP_INTERVAL = 10;
     private static int stepCount = 0;
     private static long totalTime = 0;
     private static long startTime = 0;
@@ -30,7 +28,6 @@ public class GraphOps {
 
     /**
      * A new integer class to pass the objects as reference in methods.
-     * // TODO: Rename this class with some meaningful name.
      */
     public static class MyInteger {
         public Integer integer;
@@ -135,6 +132,13 @@ public class GraphOps {
         return connectedComponentsCount;
     }
 
+    /**
+     * Save the data for demo purposes.
+     * @param graph The gaph object
+     * @param visited Boolean array indicating visited vertices
+     * @param articulationPoints Set of articulation point vertices
+     * @param step Step at which the data is being saved.
+     */
     private static void saveTheData(Graph<Node> graph, boolean[] visited, Set<Node> articulationPoints, String step) {
         try (
             FileWriter fw = new FileWriter("data/demo_data/demo_step_" + step + ".txt");
@@ -161,15 +165,33 @@ public class GraphOps {
         }
     }
 
+    /**
+     * Pad the step count with zeros
+     * @param step The step number
+     * @param len The final length of padded string
+     * @return The zero padded (prepended) string.
+     */
     private static String stepPadded(String step, int len) {
         int zeroPadLen = len - step.length();
-        String pad = "";
+        StringBuilder pad = new StringBuilder();
         for(int i = 0; i < zeroPadLen; i++) {
-            pad += "0";
+            pad.append("0");
         }
-        return pad + step;
+        return pad.toString() + step;
     }
 
+    /**
+     * Depth first search auxilliary function for detecting articulation points
+     * @param v Reference to the current `GraphNode`
+     * @param parentNode Reference to the parent `GraphNode`
+     * @param graph The `Graph` object
+     * @param visited Boolean array showing which vertices are visited
+     * @param discovery integer array storing the depth (or discovery time) of a vertex in the DFS tree.
+     * @param low integer array storing the low-point values of each vertex
+     * @param timer Integer that helps in calculating the depth of each vertex in the DFS tree
+     * @param articulationPoints a container to store the references of detected of Articulation points.
+     * @param saveData a boolean flag indicating whether to store data ot not (pass `true` to save the data).
+     */
     private static void articulationPointDetectionUtil (
         Node v,
         Node parentNode,
@@ -188,7 +210,7 @@ public class GraphOps {
 
         for (Node w: graph.getAdjList(v)) {
             stepCount += 1;
-            if(saveData && stepCount % stepInterval == 0) {
+            if(saveData && stepCount % STEP_INTERVAL == 0) {
                 // Save the data on device
                 endTime = System.currentTimeMillis();
                 totalTime += (endTime - startTime);
@@ -215,11 +237,18 @@ public class GraphOps {
         }
     }
 
+    /**
+     * Detect all articulation points in the graph
+     * @param graph Reference to the `Graph` object.
+     * @param saveData a boolean flag indicating whether to store data ot not (pass `true` to save the data).
+     * @param time Integer that helps in calculating the depth of each vertex in the DFS tree
+     * @return set of all the detected Articulation points.
+     */
     public static Set<Node> detectArticulationPoints(
         Graph<Node> graph, 
         boolean saveData,
         MyInteger time
-        ) {
+    ) {
         // Initialize step count
         stepCount = 0;
         MyInteger timer = new MyInteger(0);
@@ -233,10 +262,9 @@ public class GraphOps {
         Node parent = new GraphNode(-1);
         // Start time
         startTime = System.currentTimeMillis();
-        System.out.println("Start time: " + startTime);
         for (Node v: vertices) {
             stepCount += 1;
-            if(saveData && stepCount % stepInterval == 0) {
+            if(saveData && stepCount % STEP_INTERVAL == 0) {
                 // End time
                 endTime = System.currentTimeMillis();
                 totalTime += (endTime - startTime);
@@ -259,8 +287,7 @@ public class GraphOps {
             }
         }
         endTime = System.currentTimeMillis();
-        System.out.println("End time: " + endTime);
-        totalTime += (System.currentTimeMillis() - startTime);
+        totalTime += (endTime - startTime);
         time.integer = (int) (totalTime);
         System.out.println("Total time taken: " + totalTime + " ms");
         // Save the final data
@@ -270,6 +297,13 @@ public class GraphOps {
         return articulationPoints;
     }    
 
+    /**
+     * Detect all the articulation points in a graph using brute force.
+     * @param graph Reference to the `Graph` object.
+     * @param saveData a boolean flag indicating whether to store data ot not (pass `true` to save the data).
+     * @param time Integer that helps in calculating the depth of each vertex in the DFS tree
+     * @return set of all the detected Articulation points.
+     */
     public static Set<Node> detectArticulationPoints_BruteForce(
         Graph<Node> graph,
         boolean saveData,

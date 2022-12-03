@@ -6,8 +6,6 @@ import graph.Node;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Set;
 
 /**
  * Create graphs from file
@@ -39,6 +37,39 @@ public class GraphCreator {
                 if(!src.equals(dest)) { 
                     graph.addEdge(src, dest);
                 }
+            }
+            line = reader.readLine();
+        }
+        this.reader.close();
+        return graph;
+    }
+
+    /**
+     * Creates a graph from a file. (US cities demo version)
+     * @param filePath absolute (or relative to this directory) path (including the name of the file).
+     * @param isUndirected Whether the graph is directed or not. `true` if undirected.
+     * @return graph with adjacency list representation.
+     * @throws IOException when an error occurs while opening the file, reading the file, or closing the reader object.
+     */
+    public Graph<Node> createGraphForDemo(String filePath, boolean isUndirected) throws IOException {
+        Graph<Node> graph = new Graph<>(isUndirected);
+        FileReader fr = new FileReader(filePath);
+        this.reader = new BufferedReader(fr);
+        String line = reader.readLine();
+        while(line != null) {
+            try {
+                if (!line.startsWith("%")) {
+                    String[] tokens = line.split("#"); // Split the line around whitespace
+                    GraphNode src = new GraphNode(Integer.parseInt(tokens[0]), tokens[2]); 
+                    GraphNode dest = new GraphNode(Integer.parseInt(tokens[1]), tokens[3]);
+                    // Filtering self-edges
+                    if(!src.equals(dest)) { 
+                        graph.addEdge(src, dest);
+                    }
+                }
+            } catch(ArrayIndexOutOfBoundsException e) {
+                e.printStackTrace();
+                System.err.println("There are less/more tokens in a line! 4 needed.");
             }
             line = reader.readLine();
         }

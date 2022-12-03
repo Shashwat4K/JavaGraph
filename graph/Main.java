@@ -21,11 +21,11 @@ public class Main {
         ) {
             String line = String.valueOf(efficientAlgorithmTotalTime.integer) 
                             + " " 
-                            + String.valueOf(bruteForceTotalTime.integer);
+                            + bruteForceTotalTime.integer;
             br.write(line);
             br.newLine();
         } catch(IOException e) {
-            System.err.println("Error happened at line 91");
+            System.err.println("Error happened at line 28");
             e.printStackTrace();
         }
     }
@@ -33,24 +33,26 @@ public class Main {
         GraphCreator g = new GraphCreator();
         try {
             String fileName = "power-bcspwr09.mtx";
-            Graph<Node> myGraph2 = g.createGraph("data/power-bcspwr09/" + fileName, true);
+            Graph<Node> myGraph = g.createGraph("data/power-bcspwr09/" + fileName, true);
+            System.out.println(fileName + ": V = " + myGraph.getVertexCount() + " E = " + myGraph.getEdgesCount());
             MyInteger efficientAlgorithmTotalTime = new MyInteger(0);
             MyInteger bruteForceTotalTime = new MyInteger(0);
-            Set<Node> articulationPoints = detectArticulationPoints(myGraph2, false, efficientAlgorithmTotalTime);
-            Set<Node> articulationPointsBruteForce = detectArticulationPoints_BruteForce(myGraph2, false, bruteForceTotalTime);
+            Set<Node> articulationPoints = detectArticulationPoints(myGraph, false, efficientAlgorithmTotalTime);
+            Set<Node> articulationPointsBruteForce = detectArticulationPoints_BruteForce(myGraph, false, bruteForceTotalTime);
+            // Set<Node> apUSGraph = detectArticulationPoints(usGraph, false, new MyInteger(0));
             for(Node node: articulationPoints) { 
                 if (!articulationPointsBruteForce.contains(node)) {
                     System.out.println("Node " + node.getValue() + " is not in both sets!");
                     break;
                 }
                 System.out.print("Number of CCs after disconnecting AP " + node.getLabel() + " are: ");
-                myGraph2.disableVertex(node);
-                int cc = countConnectedComponents(myGraph2);
+                myGraph.disableVertex(node);
+                int cc = countConnectedComponents(myGraph);
                 System.out.println(cc);
-                myGraph2.enableVertex(node);
+                myGraph.enableVertex(node);
             }
             writeData(
-                "/data/demo_data/running_time_data", 
+                "data/demo_data/running_time_data/", // TODO: Change the path to an appropriate location in your device.
                 fileName, 
                 efficientAlgorithmTotalTime, 
                 bruteForceTotalTime
@@ -60,4 +62,3 @@ public class Main {
         }
     }
 }
-// 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
