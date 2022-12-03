@@ -1,0 +1,98 @@
+,city,city_ascii,state_id,state_name,population,county_name,lat,lng,id,county_fips,value
+62,Birmingham,Birmingham,AL,Alabama,753721,Jefferson,33.5279,-86.7971,1840006507,1073,0
+134,Mobile,Mobile,AL,Alabama,328610,Mobile,30.6782,-88.1162,1840006009,1097,1
+95,Little Rock,Little Rock,AR,Arkansas,446814,Pulaski,34.7256,-92.3577,1840015509,5119,2
+124,Fayetteville,Fayetteville,AR,Arkansas,350995,Washington,36.0714,-94.1661,1840013368,5143,3
+10,Phoenix,Phoenix,AZ,Arizona,4187723,Maricopa,33.5722,-112.0892,1840020568,4013,4
+56,Tucson,Tucson,AZ,Arizona,883127,Pima,32.1541,-110.8787,1840022101,4019,5
+1,Los Angeles,Los Angeles,CA,California,12531334,Los Angeles,34.1141,-118.4068,1840020491,6037,6
+12,San Francisco,San Francisco,CA,California,3557982,San Francisco,37.7558,-122.4449,1840021543,6075,7
+18,Denver,Denver,CO,Colorado,2709398,Denver,39.762,-104.8758,1840018789,8031,8
+72,Colorado Springs,Colorado Springs,CO,Colorado,621332,El Paso,38.8674,-104.7605,1840018825,8041,9
+51,Bridgeport,Bridgeport,CT,Connecticut,948918,Fairfield,41.1918,-73.1954,1840004836,9001,10
+54,Hartford,Hartford,CT,Connecticut,918434,Hartford,41.7661,-72.6834,1840004773,9003,11
+8,Washington,Washington,DC,District of Columbia,5066973,District of Columbia,38.9047,-77.0163,1840006060,11001,12
+358,Dover,Dover,DE,Delaware,125931,Kent,39.161,-75.5202,1840005810,10001,13
+689,Wilmington,Wilmington,DE,Delaware,70655,New Castle,39.7415,-75.5416,1840005579,10003,14
+3,Miami,Miami,FL,Florida,6076316,Miami-Dade,25.784,-80.2101,1840015149,12086,15
+16,Tampa,Tampa,FL,Florida,2771700,Hillsborough,27.9945,-82.4447,1840015982,12057,16
+7,Atlanta,Atlanta,GA,Georgia,5151496,Fulton,33.7628,-84.422,1840013660,13121,17
+109,Augusta,Augusta,GA,Georgia,404125,Richmond,33.3645,-82.0708,1840029462,13245,18
+86,Des Moines,Des Moines,IA,Iowa,519180,Polk,41.5725,-93.6105,1840007069,19153,19
+155,Davenport,Davenport,IA,Iowa,281895,Scott,41.5565,-90.6053,1840007081,19163,20
+107,Boise,Boise,ID,Idaho,407550,Ada,43.6005,-116.2308,1840027142,16001,21
+250,Nampa,Nampa,ID,Idaho,181887,Canyon,43.5844,-116.5638,1840020041,16027,22
+2,Chicago,Chicago,IL,Illinois,8586888,Cook,41.8375,-87.6866,1840000494,17031,23
+151,Round Lake Beach,Round Lake Beach,IL,Illinois,287012,Lake,42.3791,-88.0811,1840011171,17097,24
+35,Indianapolis,Indianapolis,IN,Indiana,1636763,Marion,39.7771,-86.1458,1840030084,18097,25
+133,Fort Wayne,Fort Wayne,IN,Indiana,329170,Allen,41.0888,-85.1436,1840008261,18003,26
+92,Wichita,Wichita,KS,Kansas,484715,Sedgwick,37.6895,-97.3443,1840001686,20173,27
+237,Overland Park,Overland Park,KS,Kansas,193412,Johnson,38.887,-94.687,1840003834,20091,28
+49,Louisville,Louisville,KY,Kentucky,1004821,Jefferson,38.1663,-85.6485,1840030815,21111,29
+138,Lexington,Lexington,KY,Kentucky,316743,Fayette,38.0423,-84.4587,1840015211,21067,30
+50,New Orleans,New Orleans,LA,Louisiana,957783,Orleans,30.0687,-89.9288,1840001839,22071,31
+77,Baton Rouge,Baton Rouge,LA,Louisiana,605449,East Baton Rouge,30.442,-91.1311,1840013941,22033,32
+9,Boston,Boston,MA,Massachusetts,4465966,Suffolk,42.3188,-71.0852,1840000455,25025,33
+73,Springfield,Springfield,MA,Massachusetts,615728,Hampden,42.1155,-72.5395,1840000466,25013,34
+20,Baltimore,Baltimore,MD,Maryland,2270087,Baltimore,39.3051,-76.6144,1840001592,24510,35
+205,Bel Air South,Bel Air South,MD,Maryland,222834,Harford,39.5022,-76.3113,1840073592,24025,36
+215,Portland,Portland,ME,Maine,213986,Cumberland,43.6773,-70.2715,1840000327,23005,37
+1262,Lewiston,Lewiston,ME,Maine,36158,Androscoggin,44.0915,-70.1681,1840000320,23001,38
+11,Detroit,Detroit,MI,Michigan,3731486,Wayne,42.3834,-83.1024,1840003971,26163,39
+74,Grand Rapids,Grand Rapids,MI,Michigan,615273,Kent,42.9619,-85.6562,1840002928,26081,40
+15,Minneapolis,Minneapolis,MN,Minnesota,2885614,Hennepin,44.9635,-93.2678,1840007830,27053,41
+143,St. Paul,St. Paul,MN,Minnesota,305877,Ramsey,44.9478,-93.1039,1840008940,27123,42
+22,St. Louis,St. Louis,MO,Missouri,2144317,St. Louis,38.6359,-90.2451,1840001651,29510,43
+36,Kansas City,Kansas City,MO,Missouri,1602005,Jackson,39.1238,-94.5541,1840008535,29095,44
+125,Jackson,Jackson,MS,Mississippi,350373,Hinds,32.3157,-90.2125,1840014895,28049,45
+200,Gulfport,Gulfport,MS,Mississippi,230156,Harrison,30.4274,-89.0704,1840013947,28047,46
+388,Billings,Billings,MT,Montana,116593,Yellowstone,45.7891,-108.5526,1840018496,30111,47
+503,Missoula,Missoula,MT,Montana,93723,Missoula,46.8751,-114.0214,1840019840,30063,48
+38,Charlotte,Charlotte,NC,North Carolina,1526465,Mecklenburg,35.2083,-80.8303,1840014557,37119,49
+46,Raleigh,Raleigh,NC,North Carolina,1073795,Wake,35.8324,-78.6429,1840014497,37183,50
+221,Fargo,Fargo,ND,North Dakota,205472,Cass,46.8651,-96.8292,1840000177,38017,51
+519,Bismarck,Bismarck,ND,North Dakota,90420,Burleigh,46.8143,-100.7694,1840001926,38015,52
+60,Omaha,Omaha,NE,Nebraska,791432,Douglas,41.2627,-96.0529,1840009315,31055,53
+157,Lincoln,Lincoln,NE,Nebraska,280780,Lancaster,40.8099,-96.6784,1840009357,31109,54
+198,Nashua,Nashua,NH,New Hampshire,231409,Hillsborough,42.7491,-71.491,1840002984,33011,55
+275,Manchester,Manchester,NH,New Hampshire,163488,Hillsborough,42.9848,-71.4447,1840002983,33011,56
+149,Trenton,Trenton,NJ,New Jersey,291085,Mercer,40.2237,-74.7641,1840001383,34021,57
+154,Newark,Newark,NJ,New Jersey,281917,Essex,40.7245,-74.1725,1840002791,34013,58
+61,Albuquerque,Albuquerque,NM,New Mexico,762853,Bernalillo,35.1054,-106.6465,1840019176,35001,59
+349,Las Cruces,Las Cruces,NM,New Mexico,129538,Doña Ana,32.3265,-106.7893,1840020683,35013,60
+21,Las Vegas,Las Vegas,NV,Nevada,2165405,Clark,36.2333,-115.2654,1840020364,32003,61
+98,Reno,Reno,NV,Nevada,440547,Washoe,39.5497,-119.8483,1840020121,32031,62
+0,New York,New York,NY,New York,18680025,Queens,40.6943,-73.9249,1840034016,36081,63
+17,Brooklyn,Brooklyn,NY,New York,2736074,Kings,40.6501,-73.9496,1840034030,36047,64
+30,Cleveland,Cleveland,OH,Ohio,1742437,Cuyahoga,41.4764,-81.6805,1840000596,39035,65
+34,Cincinnati,Cincinnati,OH,Ohio,1684800,Hamilton,39.1413,-84.506,1840003814,39061,66
+52,Oklahoma City,Oklahoma City,OK,Oklahoma,947247,Oklahoma,35.4676,-97.5136,1840020428,40109,67
+67,Tulsa,Tulsa,OK,Oklahoma,698349,Tulsa,36.1283,-95.9042,1840021672,40143,68
+24,Portland,Portland,OR,Oregon,2072553,Multnomah,45.5371,-122.65,1840019941,41051,69
+162,Eugene,Eugene,OR,Oregon,270013,Lane,44.0564,-123.1174,1840020007,41039,70
+6,Philadelphia,Philadelphia,PA,Pennsylvania,5540199,Philadelphia,40.0077,-75.1339,1840000673,42101,71
+31,Pittsburgh,Pittsburgh,PA,Pennsylvania,1719289,Allegheny,40.4397,-79.9763,1840001254,42003,72
+42,Providence,Providence,RI,Rhode Island,1204385,Providence,41.823,-71.4187,1840003289,44007,73
+577,Cranston,Cranston,RI,Rhode Island,81252,Providence,41.7658,-71.4858,1840003287,44007,74
+71,Charleston,Charleston,SC,South Carolina,645413,Charleston,32.8168,-79.9687,1840015163,45019,75
+76,Columbia,Columbia,SC,South Carolina,609689,Richland,34.0378,-80.9036,1840014730,45079,76
+260,Sioux Falls,Sioux Falls,SD,South Dakota,173921,Minnehaha,43.5396,-96.7311,1840002648,46099,77
+523,Rapid City,Rapid City,SD,South Dakota,89606,Pennington,44.0716,-103.2204,1840002180,46103,78
+45,Nashville,Nashville,TN,Tennessee,1081876,Davidson,36.1715,-86.7842,1840036155,47037,79
+47,Memphis,Memphis,TN,Tennessee,1072330,Shelby,35.1087,-89.9663,1840015457,47157,80
+4,Dallas,Dallas,TX,Texas,5910669,Dallas,32.7935,-96.7667,1840019440,48113,81
+5,Houston,Houston,TX,Texas,5724418,Harris,29.786,-95.3885,1840020925,48201,82
+44,Salt Lake City,Salt Lake City,UT,Utah,1135747,Salt Lake,40.7776,-111.9311,1840021383,49035,83
+75,Ogden,Ogden,UT,Utah,615015,Weber,41.2279,-111.9682,1840020135,49057,84
+39,Virginia Beach,Virginia Beach,VA,Virginia,1475522,Virginia Beach,36.7335,-76.0435,1840003871,51810,85
+48,Richmond,Richmond,VA,Virginia,1025117,Richmond,37.5295,-77.4756,1840001698,51760,86
+392,Burlington,Burlington,VT,Vermont,115682,Chittenden,44.4876,-73.2316,1840002310,50007,87
+2286,South Burlington,South Burlington,VT,Vermont,19359,Chittenden,44.4622,-73.2202,1840002311,50007,88
+13,Seattle,Seattle,WA,Washington,3530752,King,47.6211,-122.3244,1840021117,53033,89
+101,Spokane,Spokane,WA,Washington,426849,Spokane,47.6671,-117.433,1840021093,53063,90
+41,Milwaukee,Milwaukee,WI,Wisconsin,1390046,Milwaukee,43.0642,-87.9675,1840003046,55079,91
+96,Madison,Madison,WI,Wisconsin,445499,Dane,43.0822,-89.393,1840002915,55025,92
+232,Huntington,Huntington,WV,West Virginia,199133,Cabell,38.4109,-82.4345,1840006211,54011,93
+320,Charleston,Charleston,WV,West Virginia,141640,Kanawha,38.3484,-81.6322,1840006196,54039,94
+625,Cheyenne,Cheyenne,WY,Wyoming,76456,Laramie,41.135,-104.7902,1840018713,56021,95
+781,Casper,Casper,WY,Wyoming,63962,Natrona,42.842,-106.3208,1840038324,56025,96

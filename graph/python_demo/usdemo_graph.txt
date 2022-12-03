@@ -1,0 +1,128 @@
+69#89#Portland,OR#Seattle,WA
+69#90#Portland,OR#Spokane,WA
+89#90#Seattle,WA#Spokane,WA
+70#7#Eugene,OR#San Francisco,CA
+70#69#Eugene,OR#Portland,OR
+70#62#Eugene,OR#Reno,NV
+6#7#Los Angeles,CA#San Francisco,CA
+7#62#San Francisco,CA#Reno,NV
+6#61#Los Angeles,CA#Las Vegas,NV
+4#5#Phoenix,AZ#Tucson,AZ
+61#4#Las Vegas,NV#Phoenix,AZ
+61#83#Las Vegas,NV#Salt Lake City,UT
+83#84#Salt Lake City,UT#Ogden,UT
+62#61#Reno,NV#Las Vegas,NV
+22#21#Nampa,ID#Boise,ID
+22#70#Nampa,ID#Eugene,OR
+21#84#Boise,ID#Ogden,UT
+21#48#Boise,ID#Missoula,MT
+48#47#Missoula,MT#Billings,MT
+47#96#Billings,MT#Casper,WY
+95#96#Cheyenne,WY#Casper,WY
+95#8#Cheyenne,WY#Denver,CO
+8#9#Denver,CO#Colorado Springs,CO
+9#59#Colorado Springs,CO#Albuquerque,NM
+59#60#Albuquerque,NM#Las Cruces,NM
+4#59#Phoenix,AZ#Albuquerque,NM
+4#60#Phoenix,AZ#Las Cruces,NM
+51#52#Fargo,ND#Bismarck,ND
+77#78#Sioux Falls,SD#Rapid City,SD
+53#54#Omaha,NE#Lincoln,NE
+28#27#Overland Park,KS#Wichita,KS
+67#68#Oklahoma City,OK#Tulsa,OK
+81#82#Dallas,TX#Houston,TX
+41#42#Minneapolis,MN#St. Paul,MN
+19#20#Des Moines,IA#Davenport,IA
+20#43#Davenport,IA#St. Louis,MO
+43#44#St. Louis,MO#Kansas City,MO
+2#3#Little Rock,AR#Fayetteville,AR
+31#32#New Orleans,LA#Baton Rouge,LA
+51#77#Fargo,ND#Sioux Falls,SD
+52#78#Bismarck,ND#Rapid City,SD
+78#8#Rapid City,SD#Denver,CO
+51#41#Fargo,ND#Minneapolis,MN
+77#41#Sioux Falls,SD#Minneapolis,MN
+77#53#Sioux Falls,SD#Omaha,NE
+77#54#Sioux Falls,SD#Lincoln,NE
+54#28#Lincoln,NE#Overland Park,KS
+54#27#Lincoln,NE#Wichita,KS
+27#67#Wichita,KS#Oklahoma City,OK
+27#68#Wichita,KS#Tulsa,OK
+68#81#Tulsa,OK#Dallas,TX
+81#67#Dallas,TX#Oklahoma City,OK
+28#44#Overland Park,KS#Kansas City,MO
+68#3#Tulsa,OK#Fayetteville,AR
+81#2#Dallas,TX#Little Rock,AR
+42#19#St. Paul,MN#Des Moines,IA
+42#20#St. Paul,MN#Davenport,IA
+53#19#Omaha,NE#Des Moines,IA
+2#32#Little Rock,AR#Baton Rouge,LA
+31#46#New Orleans,LA#Gulfport,MS
+32#45#Baton Rouge,LA#Jackson,MS
+45#46#Jackson,MS#Gulfport,MS
+79#43#Nashville,TN#St. Louis,MO
+79#80#Nashville,TN#Memphis,TN
+80#2#Memphis,TN#Little Rock,AR
+80#45#Memphis,TN#Jackson,MS
+46#1#Gulfport,MS#Mobile,AL
+1#0#Mobile,AL#Birmingham,AL
+0#45#Birmingham,AL#Jackson,MS
+0#79#Birmingham,AL#Nashville,TN
+29#30#Louisville,KY#Lexington,KY
+29#79#Louisville,KY#Nashville,TN
+25#26#Indianapolis,IN#Fort Wayne,IN
+29#25#Louisville,KY#Indianapolis,IN
+25#66#Indianapolis,IN#Cincinnati,OH
+66#65#Cincinnati,OH#Cleveland,OH
+66#30#Cincinnati,OH#Lexington,KY
+26#39#Fort Wayne,IN#Detroit,MI
+39#40#Detroit,MI#Grand Rapids,MI
+26#40#Fort Wayne,IN#Grand Rapids,MI
+39#65#Detroit,MI#Cleveland,OH
+92#91#Madison,WI#Milwaukee,WI
+23#24#Chicago,IL#Round Lake Beach,IL
+24#92#Round Lake Beach,IL#Madison,WI
+24#91#Round Lake Beach,IL#Milwaukee,WI
+25#23#Indianapolis,IN#Chicago,IL
+20#92#Davenport,IA#Madison,WI
+0#17#Birmingham,AL#Atlanta,GA
+17#18#Atlanta,GA#Augusta,GA
+17#16#Atlanta,GA#Tampa,FL
+16#15#Tampa,FL#Miami,FL
+18#76#Augusta,GA#Columbia,SC
+76#75#Columbia,SC#Charleston,SC
+76#49#Columbia,SC#Charlotte,NC
+49#50#Charlotte,NC#Raleigh,NC
+50#85#Raleigh,NC#Virginia Beach,VA
+50#86#Raleigh,NC#Richmond,VA
+86#85#Richmond,VA#Virginia Beach,VA
+94#93#Charleston,WV#Huntington,WV
+94#86#Charleston,WV#Richmond,VA
+93#30#Huntington,WV#Lexington,KY
+65#72#Cleveland,OH#Pittsburgh,PA
+72#71#Pittsburgh,PA#Philadelphia,PA
+71#35#Philadelphia,PA#Baltimore,MD
+36#35#Bel Air South,MD#Baltimore,MD
+35#12#Baltimore,MD#Washington,DC
+71#14#Philadelphia,PA#Wilmington,DE
+14#13#Wilmington,DE#Dover,DE
+35#14#Baltimore,MD#Wilmington,DE
+71#57#Philadelphia,PA#Trenton,NJ
+57#58#Trenton,NJ#Newark,NJ
+58#63#Newark,NJ#New York,NY
+63#64#New York,NY#Brooklyn,NY
+58#64#Newark,NJ#Brooklyn,NY
+63#10#New York,NY#Bridgeport,CT
+10#11#Bridgeport,CT#Hartford,CT
+11#34#Hartford,CT#Springfield,MA
+34#33#Springfield,MA#Boston,MA
+11#74#Hartford,CT#Cranston,RI
+74#73#Cranston,RI#Providence,RI
+73#33#Providence,RI#Boston,MA
+33#55#Boston,MA#Nashua,NH
+55#56#Nashua,NH#Manchester,NH
+55#34#Nashua,NH#Springfield,MA
+56#88#Manchester,NH#South Burlington,VT
+87#88#Burlington,VT#South Burlington,VT
+56#37#Manchester,NH#Portland,ME
+37#38#Portland,ME#Lewiston,ME

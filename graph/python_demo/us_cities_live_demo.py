@@ -1,12 +1,17 @@
-import os
-import matplotlib.pyplot as plt
-import matplotlib.animation as animation
-import pandas as pd
-import numpy as np
-import geopandas as gpd
-from shapely.geometry import Point, LineString
-from rich import print
-from tqdm import tqdm 
+try:
+    import os
+    import matplotlib.pyplot as plt
+    import matplotlib.animation as animation
+    import pandas as pd
+    import numpy as np
+    import geopandas as gpd
+    from shapely.geometry import Point, LineString
+    from rich import print
+    from tqdm import tqdm 
+except ImportError as e:
+    print("Some libraries are not installed. Please check and install them")
+    print(str(e))
+    exit(1)
 
 def load_states_data(states_file: str):
     """Load the US states `geopandas` shape file data"""
@@ -90,7 +95,9 @@ def get_plot_lines_from_text_file(txt_file_path: str, cities):
     with open(txt_file_path, "r") as f:
         lines = f.readlines()
         for line in tqdm(lines, desc="Reading edges..."):
-            src, dest = map(int, line.split())
+            src, dest, _, _ = line.split('#')
+            src = int(src)
+            dest = int(dest)
             edges_v.append((src, dest))
     plot_lines = []
     for edge in tqdm(edges_v, desc="Getting plot lines..."):
@@ -116,18 +123,19 @@ def live_plot_animate(i, filepath, filenames, states, cities, plot_lines, ax, kw
     plotline_kw = kwargs.get('plotline_kw', {})
     ax.clear()
     states.apply(lambda x: ax.annotate(text=x.STUSPS, xy=x.geometry.centroid.coords[0], 
-        ha='center', fontsize=5.5, color='White'), #states_kw.get('ha', 'center'), fontsize=states_kw.get('fontsize', 5.5), 
+        ha='center', fontsize=8.5, color='black'), #states_kw.get('ha', 'center'), fontsize=states_kw.get('fontsize', 5.5), 
         axis=1)
     states.boundary.plot(ax=ax, linewidth=states_kw.get('boundary_linewidth', 0.4), color=states_kw.get('boundary_color', 'Black'))
     states.plot(ax=ax, cmap=states_kw.get('cmap', 'Pastel1'))
     city_coords = get_coords(cities)
     xs = city_coords['X']
     ys = city_coords['Y']
-    ax.scatter(xs, ys, 
+    unvisited = ax.scatter(xs, ys, 
         marker=scatter_kw.get('normal_marker', 'x'), 
         s=scatter_kw.get('normal_s', 4), 
         color=scatter_kw.get('normal_color', 'black'), 
-        zorder=2
+        zorder=2,
+        label="Unvisited nodes"
     )
     visited_xs = []
     visited_ys = []
@@ -141,19 +149,21 @@ def live_plot_animate(i, filepath, filenames, states, cities, plot_lines, ax, kw
         if v['isAP']:
             isAP_xs.append(curr_x)
             isAP_ys.append(curr_y)
-    ax.scatter(visited_xs, visited_ys, 
+    visited = ax.scatter(visited_xs, visited_ys, 
         marker=scatter_kw.get('visited_marker', 'o'), 
         s=scatter_kw.get('visited_s', 10), 
         color=scatter_kw.get('visited_color', 'yellow'), 
         linewidth=scatter_kw.get('linewidth', 4),
-        zorder=3
+        zorder=3,
+        label="Visited nodes"
     )
-    ax.scatter(isAP_xs, isAP_ys, 
+    APs = ax.scatter(isAP_xs, isAP_ys, 
         marker=scatter_kw.get('ap_marker', 'o'), 
         s=scatter_kw.get('ap_s', 10), 
         color=scatter_kw.get('ap_color', 'red'), 
         linewidth=scatter_kw.get('linewidth', 4),
-        zorder=4
+        zorder=4,
+        label="Articulation points"
     )
     for line in plot_lines:
         x, y = line.xy
@@ -168,12 +178,14 @@ def live_plot_animate(i, filepath, filenames, states, cities, plot_lines, ax, kw
     gca.get_yaxis().set_ticks([])
     ax.margins(x=0, y=0)
     ax.set_title(f"Frame {i} File: {filenames[i]}")
+    if kwargs.get("legend"):
+        ax.legend(handles=[unvisited, visited, APs], labels=['Unvisited nodes', 'Visited nodes', 'Articulation Points'], loc=kwargs.get("legend_loc", "lower left"))
     
 
 def main(**kwargs):
     """Main Function"""
-    DATA_ROOT = kwargs.get('data_root', "../GeoData")
-    PLOT_DATA_ROOT = kwargs.get('plot_data_root', "../data/demo_data")
+    DATA_ROOT = kwargs.get('data_root', os.getcwd())
+    PLOT_DATA_ROOT = kwargs.get('plot_data_root', os.path.join(os.getcwd(), "demo_data"))
     save_loc = kwargs.get('save_loc')
     states_file = os.path.join(DATA_ROOT, "usa-states-census-2014.shp")
     cities_file = os.path.join(DATA_ROOT, "filtered_uscities_data.csv")
@@ -209,10 +221,13 @@ def main(**kwargs):
     plt.show()
 
 if __name__ == "__main__":
-    states_kw = {'cmap': 'viridis', 'boundary_color':'white'}
-    scatter_kw = {'normal_marker':'o', 'visited_s': 150, 'visited_color': 'cyan', 'visited_marker':'*', 'ap_s': 90, 'ap_marker': 'x'}
-    plotline_kw = {'color': 'yellow', 'alpha': 1.0}
+    states_kw = {'cmap': 'Pastel1', 'boundary_color':'black'}
+    scatter_kw = {'normal_marker':'o', 'visited_s': 150, 'visited_color': 'blue', 'visited_marker':'*', 'ap_s': 90, 'ap_marker': 'x'}
+    plotline_kw = {'color': 'green', 'alpha': 1.0}
+    # Pass the paths of the data directories accordingly
+    # Call this python script from the directory it is in.
     main(
-        figsize=(20, 8),
-        states_kw=states_kw, scatter_kw=scatter_kw, plotline_kw=plotline_kw, show_fullscreen=True
+        figsize=(20, 8), data_root=os.getcwd(), plot_data_root=os.path.join(os.getcwd(), "demo_data"), # save_loc=os.path.join(os.getcwd(), "animation.gif"),
+        legend=True, legend_loc="lower left",
+        states_kw=states_kw, scatter_kw=scatter_kw, plotline_kw=plotline_kw
     )
