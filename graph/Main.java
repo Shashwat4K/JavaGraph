@@ -58,6 +58,7 @@ public class Main {
     public static void main(String[] args) {
         GraphCreator g = new GraphCreator();
         Scanner sc = new Scanner(System.in);
+        String DATA_ROOT_PATH = "data/"; // TODO: Modify this root path accordingly
         try {
             menu();
             String graphFile = "";
@@ -85,7 +86,7 @@ public class Main {
             }
             if (userInput > 0 && userInput <= 5) {
                 String fileName = graphFile + ".mtx";
-                Graph<Node> myGraph = g.createGraph("src/data/" + graphFile + "/" + fileName, true);
+                Graph<Node> myGraph = g.createGraph(DATA_ROOT_PATH + graphFile + "/" + fileName, true);
                 System.out.println(fileName + ": V = " + myGraph.getVertexCount() + " E = " + myGraph.getEdgesCount());
                 MyInteger efficientAlgorithmTotalTime = new MyInteger(0);
                 MyInteger bruteForceTotalTime = new MyInteger(0);
@@ -104,7 +105,7 @@ public class Main {
                     myGraph.enableVertex(node);
                 }
                 writeData(
-                    "src/data/demo_data/running_time_data/", // TODO: Change the path to an appropriate location in your device.
+                    DATA_ROOT_PATH + "demo_data/running_time_data/", // TODO: Change the path to an appropriate location in your device.
                     fileName, 
                     efficientAlgorithmTotalTime, 
                     bruteForceTotalTime
