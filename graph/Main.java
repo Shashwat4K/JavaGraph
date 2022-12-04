@@ -15,6 +15,9 @@ import static graph.GraphOps.detectArticulationPoints_BruteForce;
  * Main class to test and debug the graph operations.
  */
 public class Main {
+    /**
+     * User menu
+     */
     private static void menu() {
         System.out.println("1) power-494-bus");
         System.out.println("2) power-662-bus");
@@ -23,6 +26,15 @@ public class Main {
         System.out.println("5) power-bcspwr09");
         System.out.println("0) Exit");
     }
+
+    /**
+     * Write the run time data on files.
+     * Writes a single line with two columns: efficient time <space> brute-force time
+     * @param filePath File Path
+     * @param fileName Name of the file
+     * @param efficientAlgorithmTotalTime time taken by efficient algorithm
+     * @param bruteForceTotalTime time taken by brute-force algorithm
+     */
     private static void writeData(String filePath, String fileName, MyInteger efficientAlgorithmTotalTime, MyInteger bruteForceTotalTime) {
         try(
             FileWriter fr = new FileWriter(filePath + fileName + ".txt");
@@ -38,6 +50,11 @@ public class Main {
             e.printStackTrace();
         }
     }
+    
+    /**
+     * Main method
+     * @param args command line args
+     */
     public static void main(String[] args) {
         GraphCreator g = new GraphCreator();
         Scanner sc = new Scanner(System.in);
@@ -67,7 +84,6 @@ public class Main {
                     break;
             }
             if (userInput > 0 && userInput <= 5) {
-                
                 String fileName = graphFile + ".mtx";
                 Graph<Node> myGraph = g.createGraph("src/data/" + graphFile + "/" + fileName, true);
                 System.out.println(fileName + ": V = " + myGraph.getVertexCount() + " E = " + myGraph.getEdgesCount());
@@ -94,6 +110,7 @@ public class Main {
                     bruteForceTotalTime
                 );
             }
+            sc.close();
         } catch(IOException e) {
             e.printStackTrace();
         }
