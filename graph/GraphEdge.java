@@ -62,7 +62,7 @@ public class GraphEdge<T extends Node> {
             return false;
         }
 
-        GraphEdge<T> graphEdge = (GraphEdge<T>) o;
+        @SuppressWarnings("unchecked") GraphEdge<T> graphEdge = (GraphEdge<T>) o;
         return this.src.equals(graphEdge.src) 
             && this.dest.equals(graphEdge.dest) 
             && this.isUndirected == graphEdge.isUndirected;
